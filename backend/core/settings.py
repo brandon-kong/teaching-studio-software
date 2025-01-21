@@ -111,7 +111,14 @@ DATABASES = {
 # Caches
 
 CACHES = {
-    "default": env.cache(),
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": env("CACHE_URL"),
+        "OPTIONS": {
+            "PASSWORD": env("CACHE_PASSWORD"),
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        }
+    }
 }
 
 
